@@ -142,6 +142,40 @@
         </div>
     </nav>
 
+    <div id="mobile-menu" class="fixed inset-0 z-[100] invisible opacity-0 transition-all duration-300">
+        <div id="mobile-backdrop" class="absolute inset-0 bg-slate-950/40 backdrop-blur-sm"></div>
+        
+        <div id="mobile-content" class="absolute right-0 top-0 bottom-0 w-[280px] bg-white shadow-2xl translate-x-full transition-transform duration-500 ease-out p-8 flex flex-col">
+            <div class="flex justify-between items-center mb-12">
+                <span class="text-[10px] font-black text-slate-400 tracking-[0.3em] uppercase">Navigasi</span>
+                <button id="mobile-close" class="p-2 text-slate-950 hover:bg-slate-100 rounded-xl transition-colors">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+    
+            <nav class="flex flex-col gap-6">
+                <a href="index.html" class="mobile-link group flex items-center justify-between py-2 border-b border-slate-50">
+                    <span class="font-display font-bold text-xl text-slate-950 group-hover:text-secondary transition-colors">BERANDA</span>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300"></i>
+                </a>
+                <a href="#reguler" class="mobile-link group flex items-center justify-between py-2 border-b border-slate-50">
+                    <span class="font-display font-bold text-xl text-slate-950 group-hover:text-secondary transition-colors">KURIKULUM</span>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-slate-300"></i>
+                </a>
+                <a href="onlinedojo.html" class="mobile-link group flex items-center justify-between py-2 border-b border-slate-50">
+                    <span class="font-display font-bold text-xl text-slate-950 group-hover:text-secondary transition-colors text-secondary">KELAS ONLINE</span>
+                    <i data-lucide="sparkles" class="w-4 h-4 text-secondary"></i>
+                </a>
+            </nav>
+    
+            <div class="mt-auto">
+                <a href="login.html" class="block w-full bg-slate-950 text-white text-center py-4 rounded-2xl font-bold text-sm shadow-xl shadow-blue-900/10 active:scale-95 transition-all">
+                    PORTAL SISWA
+                </a>
+            </div>
+        </div>
+    </div>
+
     <header class="relative pt-40 pb-20 overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -405,6 +439,39 @@
                 delay: i * 0.1,
                 ease: "power2.out"
             });
+        });
+
+        // LOGIKA MOBILE MENU
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const mobileClose = document.getElementById('mobile-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileContent = document.getElementById('mobile-content');
+        const mobileBackdrop = document.getElementById('mobile-backdrop');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function openMenu() {
+            mobileMenu.classList.remove('invisible', 'opacity-0');
+            mobileContent.classList.remove('translate-x-full');
+            document.body.style.overflow = 'hidden'; // Kunci scroll biar nggak gerak
+        }
+
+        function closeMenu() {
+            mobileContent.classList.add('translate-x-full');
+            mobileMenu.classList.add('opacity-0');
+            setTimeout(() => {
+                mobileMenu.classList.add('invisible');
+                document.body.style.overflow = ''; // Aktifkan scroll lagi
+            }, 500);
+        }
+
+        // Event Listeners
+        mobileToggle.addEventListener('click', openMenu);
+        mobileClose.addEventListener('click', closeMenu);
+        mobileBackdrop.addEventListener('click', closeMenu);
+        
+        // Tutup menu kalau salah satu link diklik
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
         });
 
     </script>

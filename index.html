@@ -146,7 +146,7 @@
                 <a href="#home" class="text-sm font-medium text-gray-500 hover:text-primary transition-colors">Beranda</a>
                 <a href="#about" class="text-sm font-medium text-gray-500 hover:text-primary transition-colors">Tentang</a>
                 <a href="#programs" class="text-sm font-medium text-gray-500 hover:text-primary transition-colors">Program</a>
-                <a href="/onlinedojo.html" class="text-sm font-medium text-gray-500 hover:text-primary transition-colors">Kelas Online</a>
+                <a href="onlinedojo.html" class="text-sm font-medium text-gray-500 hover:text-primary transition-colors">Kelas Online</a>
                 <a href="#gallery" class="text-sm font-medium text-gray-500 hover:text-primary transition-colors">Galeri</a>
                 <a href="#faq" class="text-sm font-medium text-gray-500 hover:text-primary transition-colors">FAQ</a>
             </div>
@@ -166,7 +166,7 @@
         <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" id="mobile-backdrop"></div>
         <div class="absolute right-0 top-0 bottom-0 w-[85%] max-w-[320px] bg-white p-6 translate-x-full mobile-menu-content shadow-2xl flex flex-col h-full">
             <div class="flex justify-between items-center mb-8 pt-2">
-                <span class="font-display font-bold text-lg text-primary">Navigasi</span>
+                <span class="font-display font-bold text-lg text-primary uppercase tracking-widest">Navigasi</span>
                 <button id="mobile-close" class="p-2 bg-gray-50 rounded-full hover:bg-gray-100 transition text-primary">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
@@ -176,10 +176,16 @@
                 <a href="#home" class="mobile-link text-xl font-display font-bold text-primary hover:text-secondary py-3 border-b border-gray-50">Beranda</a>
                 <a href="#about" class="mobile-link text-xl font-display font-bold text-muted hover:text-primary py-3 border-b border-gray-50 transition-colors">Tentang Kami</a>
                 <a href="#programs" class="mobile-link text-xl font-display font-bold text-muted hover:text-primary py-3 border-b border-gray-50 transition-colors">Program Latihan</a>
+                
+                <a href="onlinedojo.html" class="mobile-link text-xl font-display font-bold text-secondary hover:text-primary py-3 border-b border-gray-50 transition-colors flex items-center justify-between">
+                    Kelas Online
+                    <span class="text-[8px] bg-red-500 text-white px-2 py-0.5 rounded-full animate-pulse">NEW</span>
+                </a>
+                
                 <a href="#gallery" class="mobile-link text-xl font-display font-bold text-muted hover:text-primary py-3 border-b border-gray-50 transition-colors">Galeri</a>
                 <a href="#faq" class="mobile-link text-xl font-display font-bold text-muted hover:text-primary py-3 border-b border-gray-50 transition-colors">FAQ</a>
             </div>
-
+    
             <div class="mt-6 pt-4 border-t border-gray-100">
                 <button onclick="toggleModal('join-modal', true); closeMobileMenu()" class="flex w-full items-center justify-center gap-2 bg-primary text-white py-3.5 rounded-xl font-bold shadow-lg shadow-blue-900/10 active:scale-95 transition-transform">
                     Daftar Sekarang <i data-lucide="arrow-right" class="w-4 h-4"></i>
