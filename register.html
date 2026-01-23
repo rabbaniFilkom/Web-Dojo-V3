@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dojo Yudhistira - Form Pendaftaran</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Animasi Transisi Halus (Pengganti Framer Motion) */
+        .step-content {
+            display: none;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.4s ease-out;
+        }
+
+        .step-content.active {
+            display: block;
+            opacity: 1;
+            transform: translateX(0);
+            animation: slideIn 0.4s forwards;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top: 3px solid white;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 selection:bg-blue-100 selection:text-blue-700 min-h-screen">
+
+    <div class="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 min-h-screen">
+        
+        <aside class="lg:col-span-4 p-8 lg:p-16 flex flex-col justify-between">
+            <div class="space-y-12">
+                <a href="index.html" class="inline-flex items-center gap-2 text-slate-400 hover:text-blue-600 transition-all font-semibold text-sm">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Beranda
+                </a>
+
+                <div class="space-y-6">
+                    <div class="inline-block p-3 bg-blue-600 rounded-2xl shadow-lg shadow-blue-100">
+                        <i data-lucide="trophy" class="text-white w-6 h-6"></i>
+                    </div>
+                    <h1 class="text-5xl font-extrabold tracking-tight leading-[1.1]">
+                        Daftar <br /> <span class="text-blue-600">Atlet Baru.</span>
+                    </h1>
+                    <p class="text-slate-500 leading-relaxed max-w-xs">
+                        Bergabunglah dengan Dojo Yudhistira dan mulai perjalanan ksatria Anda hari ini.
+                    </p>
+                </div>
+
+                <nav class="space-y-6" id="stepIndicator">
+                    <div class="flex items-center gap-4 group cursor-default" id="ind-1">
+                        <div class="w-10 h-10 rounded-xl flex items-center justify-center transition-all bg-blue-600 text-white shadow-lg shadow-blue-100 ring-indicator">
+                            <i data-lucide="user" class="w-4 h-4"></i>
+                        </div>
+                        <span class="font-bold text-sm tracking-tight text-slate-900 text-indicator">Biodata Diri</span>
+                    </div>
+
+                    <div class="flex items-center gap-4 group cursor-default" id="ind-2">
+                        <div class="w-10 h-10 rounded-xl flex items-center justify-center transition-all bg-white text-slate-300 border border-slate-100 ring-indicator">
+                            <i data-lucide="zap" class="w-4 h-4"></i>
+                        </div>
+                        <span class="font-bold text-sm tracking-tight text-slate-300 text-indicator">Informasi Teknis</span>
+                    </div>
+
+                    <div class="flex items-center gap-4 group cursor-default" id="ind-3">
+                        <div class="w-10 h-10 rounded-xl flex items-center justify-center transition-all bg-white text-slate-300 border border-slate-100 ring-indicator">
+                            <i data-lucide="shield-check" class="w-4 h-4"></i>
+                        </div>
+                        <span class="font-bold text-sm tracking-tight text-slate-300 text-indicator">Finalisasi</span>
+                    </div>
+                </nav>
+            </div>
+
+            <p class="text-xs font-medium text-slate-300 uppercase tracking-widest mt-8 lg:mt-0">
+                © 2026 Dojo Yudhistira
+            </p>
+        </aside>
+
+        <main class="lg:col-span-8 p-4 lg:p-12 flex items-center">
+            
+            <div class="w-full bg-white p-8 lg:p-16 rounded-[3rem] shadow-sm shadow-slate-200 border border-slate-100 relative overflow-hidden">
+                
+                <div id="successScreen" class="hidden text-center space-y-8 py-10">
+                    <div class="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mx-auto shadow-lg shadow-blue-200">
+                        <i data-lucide="check-circle-2" class="text-white w-10 h-10"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <h1 class="text-3xl font-bold text-slate-900 tracking-tight">OSS! Berhasil</h1>
+                        <p class="text-slate-500">Pendaftaran <b id="successName">Atlet</b> telah kami terima. Kami akan segera menghubungi Anda.</p>
+                    </div>
+                    <a href="/" class="flex items-center justify-center gap-2 bg-slate-900 text-white w-full py-4 rounded-2xl font-semibold hover:bg-blue-600 transition-all">
+                        <i data-lucide="home" class="w-4 h-4"></i> Kembali ke Beranda
+                    </a>
+                </div>
+
+                <form id="mainForm" class="space-y-10">
+                    
+                    <div id="step1" class="step-content active space-y-8">
+                        <header>
+                            <h2 class="text-2xl font-bold text-slate-900">Informasi Pribadi</h2>
+                            <p class="text-slate-500 text-sm mt-1">Lengkapi data sesuai akte kelahiran Anda.</p>
+                        </header>
+                        
+                        <div class="grid grid-cols-1 gap-6">
+                            <div class="space-y-2 group text-left">
+                                <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
+                                    <i data-lucide="user" class="w-4 h-4"></i> Nama Lengkap
+                                </label>
+                                <input type="text" name="nama" placeholder="Sesuai Akte" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm text-slate-900 focus:bg-white focus:border-blue-600 outline-none transition-all placeholder:text-slate-300 font-semibold" required>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-2 group">
+                                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
+                                        <i data-lucide="map-pin" class="w-4 h-4"></i> Tempat Lahir
+                                    </label>
+                                    <input type="text" name="tempatLahir" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm text-slate-900 focus:bg-white focus:border-blue-600 outline-none transition-all font-semibold" required>
+                                </div>
+                                <div class="space-y-2 group">
+                                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
+                                        <i data-lucide="calendar" class="w-4 h-4"></i> Tanggal Lahir
+                                    </label>
+                                    <input type="date" name="tanggalLahir" id="dobInput" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm text-slate-900 focus:bg-white focus:border-blue-600 outline-none transition-all font-semibold" required>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-2 group">
+                                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
+                                        <i data-lucide="graduation-cap" class="w-4 h-4"></i> Sekolah / Kampus
+                                    </label>
+                                    <input type="text" name="sekolah" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm text-slate-900 focus:bg-white focus:border-blue-600 outline-none transition-all font-semibold" required>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="space-y-2 group">
+                                        <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Kelas</label>
+                                        <input type="text" name="kelas" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm text-slate-900 focus:bg-white focus:border-blue-600 outline-none transition-all font-semibold" required>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="text-[11px] font-bold text-slate-400 uppercase ml-1">Usia</label>
+                                        <div id="ageDisplay" class="h-[58px] flex items-center px-6 bg-slate-50 rounded-2xl font-bold text-slate-900 border border-slate-100">
+                                            0 Thn
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3">
+                                <label class="text-[11px] font-bold text-slate-400 uppercase ml-1 tracking-widest">Jenis Kelamin</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <button type="button" onclick="setGender('Laki-laki')" id="btnMale" class="py-4 rounded-2xl font-bold text-sm transition-all border bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-100">Laki-laki</button>
+                                    <button type="button" onclick="setGender('Perempuan')" id="btnFemale" class="py-4 rounded-2xl font-bold text-sm transition-all border bg-white text-slate-400 border-slate-200 hover:border-blue-200">Perempuan</button>
+                                </div>
+                                <input type="hidden" name="jenisKelamin" id="genderInput" value="Laki-laki">
+                            </div>
+                        </div>
+
+                        <button type="button" onclick="nextStep()" class="w-full bg-blue-600 text-white py-5 rounded-[1.5rem] font-bold shadow-xl shadow-blue-100 hover:bg-slate-900 transition-all flex items-center justify-center gap-2 group">
+                            Lanjutkan <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+
+                    <div id="step2" class="step-content space-y-8">
+                        <header>
+                            <h2 class="text-2xl font-bold text-slate-900">Data Fisik & Karate</h2>
+                            <p class="text-slate-500 text-sm mt-1">Informasi ini membantu pelatih mengenal Anda.</p>
+                        </header>
+
+                        <div class="space-y-6">
+                            <div class="p-6 bg-slate-50 border border-slate-100 rounded-3xl flex items-center justify-between group cursor-pointer hover:bg-slate-100 transition-all" onclick="toggleKarate()">
+                                <div class="flex items-center gap-4">
+                                    <div id="iconPernahKarate" class="w-12 h-12 rounded-2xl flex items-center justify-center transition-all bg-white border border-slate-200 text-slate-300">
+                                        <i data-lucide="zap" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900">Murid Pindahan?</h4>
+                                        <p class="text-xs text-slate-500 uppercase">Aktifkan jika pernah ikut perguruan lain</p>
+                                    </div>
+                                </div>
+                                <div id="checkPernahKarate" class="w-6 h-6 rounded-lg border-2 border-slate-200 transition-all flex items-center justify-center">
+                                    </div>
+                            </div>
+                            <input type="hidden" name="pernahKarate" id="inputPernahKarate" value="false">
+
+                            <div id="karateFields" class="hidden grid-cols-1 md:grid-cols-2 gap-6 animate-in fade-in">
+                                <div class="md:col-span-2 space-y-2">
+                                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Sabuk Terakhir</label>
+                                    <div class="relative">
+                                        <select name="sabukTerakhir" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm text-slate-900 focus:border-blue-600 outline-none appearance-none cursor-pointer font-bold transition-all">
+                                            <option value="Putih">PUTIH</option>
+                                            <option value="Kuning">KUNING</option>
+                                            <option value="Hijau">HIJAU</option>
+                                            <option value="Biru">BIRU</option>
+                                            <option value="Cokelat">COKELAT</option>
+                                            <option value="Hitam">HITAM</option>
+                                        </select>
+                                        <div class="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-slate-300">▼</div>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Perguruan Asal</label>
+                                    <input type="text" name="perguruanAsal" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-semibold outline-none focus:border-blue-600">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Dojo Asal</label>
+                                    <input type="text" name="dojoAsal" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-semibold outline-none focus:border-blue-600">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-3 gap-4 border-t border-slate-100 pt-8">
+                                <div class="space-y-2 group">
+                                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-1">
+                                        <i data-lucide="ruler" class="w-3 h-3"></i> Tinggi
+                                    </label>
+                                    <input type="number" name="tinggiBadan" placeholder="cm" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-4 py-4 text-sm text-slate-900 focus:bg-white focus:border-blue-600 outline-none transition-all font-semibold text-center">
+                                </div>
+                                <div class="space-y-2 group">
+                                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-1">
+                                        <i data-lucide="scale" class="w-3 h-3"></i> Berat
+                                    </label>
+                                    <input type="number" name="beratBadan" placeholder="kg" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-4 py-4 text-sm text-slate-900 focus:bg-white focus:border-blue-600 outline-none transition-all font-semibold text-center">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Goldar</label>
+                                    <div class="relative">
+                                        <select name="golDarah" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-2 py-4 text-sm text-slate-900 focus:border-blue-600 outline-none appearance-none cursor-pointer font-bold transition-all text-center">
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="AB">AB</option>
+                                            <option value="O">O</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <button type="button" onclick="prevStep()" class="flex-1 border border-slate-200 py-5 rounded-2xl font-bold text-slate-400 hover:text-slate-900 hover:bg-slate-50 transition-all">Balik</button>
+                            <button type="button" onclick="nextStep()" class="flex-[2] bg-blue-600 text-white py-5 rounded-2xl font-bold shadow-xl shadow-blue-100 hover:bg-slate-900 transition-all">Tahap Akhir</button>
+                        </div>
+                    </div>
+
+                    <div id="step3" class="step-content space-y-8">
+                        <header>
+                            <h2 class="text-2xl font-bold text-slate-900">Berkas & Kontak</h2>
+                            <p class="text-slate-500 text-sm mt-1">Langkah terakhir untuk otentikasi data.</p>
+                        </header>
+
+                        <div class="space-y-6">
+                            <div class="space-y-2">
+                                <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Upload Foto Akte Kelahiran</label>
+                                <label id="fileLabel" class="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-300 rounded-[2rem] cursor-pointer transition-all">
+                                    <div id="fileIconContainer" class="text-slate-300">
+                                        <i data-lucide="file-text" class="w-8 h-8"></i>
+                                    </div>
+                                    <span id="fileName" class="text-xs font-bold mt-4 text-slate-400">Klik untuk Pilih File</span>
+                                    <input type="file" id="akteInput" class="hidden" accept="image/*" onchange="handleFileChange(this)">
+                                    <textarea name="akteBase64" id="akteBase64" class="hidden"></textarea>
+                                </label>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-2 group">
+                                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1">Nama Wali</label>
+                                    <input type="text" name="namaWali" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-semibold outline-none focus:border-blue-600" required>
+                                </div>
+                                <div class="space-y-2 group">
+                                    <label class="text-[11px] font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
+                                        <i data-lucide="phone" class="w-4 h-4"></i> WA Orang Tua
+                                    </label>
+                                    <input type="tel" name="wa" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-sm font-semibold outline-none focus:border-blue-600" required>
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="text-[11px] font-bold text-slate-400 uppercase ml-1 tracking-widest">Alamat Lengkap</label>
+                                <textarea name="alamat" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-4 text-slate-900 focus:border-blue-600 outline-none transition-all min-h-[120px] text-sm font-medium" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <button type="button" onclick="prevStep()" class="flex-1 border border-slate-200 py-5 rounded-2xl font-bold text-slate-400 hover:text-slate-900 transition-all">Revisi</button>
+                            <button type="submit" id="submitBtn" class="flex-[3] bg-blue-600 text-white py-5 rounded-2xl font-black tracking-widest shadow-xl shadow-blue-100 hover:bg-slate-900 transition-all uppercase flex items-center justify-center gap-2">
+                                <span>Kirim Pendaftaran</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // --- 1. INISIALISASI ---
+        lucide.createIcons(); // Render ikon
+        let currentStep = 1;
+        
+        // --- 2. NAVIGASI STEP ---
+        function showStep(step) {
+            // Sembunyikan semua step
+            document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+            // Tampilkan step target
+            document.getElementById(`step${step}`).classList.add('active');
+            
+            // Update Indikator Sidebar
+            updateIndicators(step);
+            
+            currentStep = step;
+        }
+
+        function nextStep() {
+            // Validasi Sederhana
+            if(currentStep === 1) {
+                const required = ['nama', 'tempatLahir', 'dobInput', 'sekolah', 'kelas'];
+                for(let id of required) {
+                   const el = document.querySelector(`[name="${id === 'dobInput' ? 'tanggalLahir' : id}"]`);
+                   if(!el.value) { alert("Mohon lengkapi data wajib."); el.focus(); return; }
+                }
+            }
+            if (currentStep < 3) showStep(currentStep + 1);
+        }
+
+        function prevStep() {
+            if (currentStep > 1) showStep(currentStep - 1);
+        }
+
+        function updateIndicators(step) {
+            // Reset style semua indikator
+            for(let i=1; i<=3; i++) {
+                const container = document.querySelector(`#ind-${i} .ring-indicator`);
+                const text = document.querySelector(`#ind-${i} .text-indicator`);
+                
+                if (i === step) {
+                    // Active
+                    container.className = "w-10 h-10 rounded-xl flex items-center justify-center transition-all bg-blue-600 text-white shadow-lg shadow-blue-100 ring-indicator";
+                    text.className = "font-bold text-sm tracking-tight text-slate-900 text-indicator";
+                } else {
+                    // Inactive
+                    container.className = "w-10 h-10 rounded-xl flex items-center justify-center transition-all bg-white text-slate-300 border border-slate-100 ring-indicator";
+                    text.className = "font-bold text-sm tracking-tight text-slate-300 text-indicator";
+                }
+            }
+        }
+
+        // --- 3. LOGIKA FORM ---
+        
+        // Kalkulasi Usia
+        const dobInput = document.getElementById('dobInput');
+        dobInput.addEventListener('change', function() {
+            if (this.value) {
+                const birth = new Date(this.value);
+                const now = new Date();
+                let age = now.getFullYear() - birth.getFullYear();
+                const m = now.getMonth() - birth.getMonth();
+                if (m < 0 || (m === 0 && now.getDate() < birth.getDate())) {
+                    age--;
+                }
+                document.getElementById('ageDisplay').innerText = (age > 0 ? age : 0) + " Thn";
+            }
+        });
+
+        // Gender Selection
+        function setGender(val) {
+            document.getElementById('genderInput').value = val;
+            const btnMale = document.getElementById('btnMale');
+            const btnFemale = document.getElementById('btnFemale');
+
+            if(val === 'Laki-laki') {
+                btnMale.className = "py-4 rounded-2xl font-bold text-sm transition-all border bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-100";
+                btnFemale.className = "py-4 rounded-2xl font-bold text-sm transition-all border bg-white text-slate-400 border-slate-200 hover:border-blue-200";
+            } else {
+                btnFemale.className = "py-4 rounded-2xl font-bold text-sm transition-all border bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-100";
+                btnMale.className = "py-4 rounded-2xl font-bold text-sm transition-all border bg-white text-slate-400 border-slate-200 hover:border-blue-200";
+            }
+        }
+
+        // Karate Toggle
+        let isPernahKarate = false;
+        function toggleKarate() {
+            isPernahKarate = !isPernahKarate;
+            document.getElementById('inputPernahKarate').value = isPernahKarate;
+            
+            const iconBox = document.getElementById('iconPernahKarate');
+            const checkBox = document.getElementById('checkPernahKarate');
+            const fields = document.getElementById('karateFields');
+
+            if(isPernahKarate) {
+                iconBox.className = "w-12 h-12 rounded-2xl flex items-center justify-center transition-all bg-blue-600 text-white shadow-lg";
+                checkBox.className = "w-6 h-6 rounded-lg border-2 transition-all flex items-center justify-center bg-blue-600 border-blue-600 text-white";
+                checkBox.innerHTML = `<i data-lucide="check-circle-2" class="w-4 h-4"></i>`;
+                lucide.createIcons(); // Re-render icon baru
+                fields.style.display = "grid"; // Grid layout untuk fields
+                fields.classList.remove('hidden');
+            } else {
+                iconBox.className = "w-12 h-12 rounded-2xl flex items-center justify-center transition-all bg-white border border-slate-200 text-slate-300";
+                checkBox.className = "w-6 h-6 rounded-lg border-2 border-slate-200 transition-all flex items-center justify-center";
+                checkBox.innerHTML = "";
+                fields.classList.add('hidden');
+                fields.style.display = "none";
+            }
+        }
+
+        // File Handler
+        function handleFileChange(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    // Simpan string base64 ke textarea hidden
+                    document.getElementById('akteBase64').value = reader.result;
+                    
+                    // Update UI Label
+                    const label = document.getElementById('fileLabel');
+                    const iconContainer = document.getElementById('fileIconContainer');
+                    const text = document.getElementById('fileName');
+                    
+                    label.className = "flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-[2rem] cursor-pointer transition-all border-blue-600 bg-blue-50 text-blue-600";
+                    iconContainer.innerHTML = `<i data-lucide="file-check" class="w-8 h-8 animate-bounce"></i>`;
+                    text.innerText = "Akte Berhasil Dipilih: " + file.name.substring(0, 15) + "...";
+                    text.className = "text-xs font-bold mt-4 text-blue-600";
+                    lucide.createIcons();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // --- 4. SUBMIT FORM ---
+        document.getElementById('mainForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const originalBtnText = submitBtn.innerHTML;
+            
+            // Loading State
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<span class="spinner"></span> Menyimpan Data...`;
+            submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            // Ambil semua data form menjadi object
+            const formData = new FormData(this);
+            const dataObj = {};
+            formData.forEach((value, key) => { dataObj[key] = value });
+            
+            // Konversi tipe data manual (karena FormData semua string)
+            dataObj.usia = parseInt(document.getElementById('ageDisplay').innerText) || 0;
+            dataObj.tinggiBadan = parseInt(dataObj.tinggiBadan) || 0;
+            dataObj.beratBadan = parseInt(dataObj.beratBadan) || 0;
+            dataObj.pernahKarate = isPernahKarate;
+
+            const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxEFXS7X3wqCs0J2KCyt8OQtIEMDDMaNub5tOizWu3Pxp9YNcllxlt8xAkbfQnIZu5B1g/exec";
+
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dataObj)
+                });
+
+                // Sukses
+                document.getElementById('mainForm').style.display = 'none';
+                document.getElementById('successScreen').classList.remove('hidden');
+                document.getElementById('successScreen').classList.add('block', 'animate-[slideIn_0.5s_ease-out]');
+                document.getElementById('successName').innerText = dataObj.nama;
+
+            } catch (error) {
+                alert("Terjadi kesalahan teknis. Silakan coba lagi.");
+                // Reset Button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        });
+    </script>
+</body>
+</html>
