@@ -101,7 +101,7 @@
         ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
 
         /* Typography spacing */
-        .tracking-ultra { tracking-widest: 0.3em; }
+        .tracking-ultra { letter-spacing: 0.3em; }
     </style>
 </head>
 <body class="selection:bg-blue-100 selection:text-blue-600">
@@ -227,7 +227,7 @@
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
                 <div class="max-w-2xl">
                     <h4 class="text-secondary font-bold text-[10px] tracking-[0.4em] uppercase mb-4">The Journey</h4>
-                    <h2 class="font-display font-bold text-4xl md:text-5xl text-slate-950 leading-none tracking-tight">Kurikulum Reguler</h2>
+                    <h2 class="font-display font-bold text-4xl md:text-5xl text-slate-950 leading-none tracking-tight">Kelas Reguler</h2>
                     <p class="mt-6 text-slate-500 font-medium">Setiap tingkatan dirancang secara sistematis sesuai dengan standar INKAI. Pilih tingkatan sabuk Anda untuk mengakses perpustakaan teknik.</p>
                 </div>
                 <div class="hidden md:block">
@@ -239,88 +239,92 @@
                 
                 <article onclick="location.href='./Kurikulum/putih.html?belt=white'" class="premium-card p-8 rounded-[2.5rem] group cursor-pointer">
                     <div class="w-full h-2 bg-slate-100 rounded-full mb-8 shadow-inner relative overflow-hidden">
-                        <div class="absolute top-0 left-0 h-full w-1/3 bg-slate-300"></div>
+                        <div class="absolute top-0 left-0 h-full bg-slate-300"></div>
                     </div>
                     <div class="relative z-10">
                         <div class="flex justify-between items-start mb-2">
-                            <span class="text-[10px] font-extrabold text-slate-400 tracking-widest uppercase">Kyu 9</span>
-                            <span class="text-[8px] font-bold text-green-500 bg-green-50 px-2 py-0.5 rounded-full">OPEN</span>
+                            <span class="text-[10px] font-extrabold text-slate-400 tracking-widest uppercase">Kyu 10</span>
+                            <span class="text-[8px] font-bold text-green-500 bg-green-50 px-2 py-0.5 rounded-full">FREE</span>
                         </div>
                         <h3 class="font-display font-bold text-2xl text-slate-900 mb-4 group-hover:text-secondary transition-colors">Sabuk Putih</h3>
                         <p class="text-[11px] text-slate-500 leading-relaxed mb-8">Pondasi Bushido, etika dojo, dan penguasaan Kata 1 (Heian Shodan).</p>
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center group-hover:bg-slate-950 group-hover:text-white transition-all duration-500">
-                                <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="zap" class="w-4 h-4 fill-current"></i>
                             </div>
-                            <span class="text-[10px] font-bold text-slate-400 group-hover:text-slate-950 transition-colors tracking-widest uppercase">Mulai Belajar</span>
+                            <span class="text-[10px] font-bold text-slate-400 group-hover:text-slate-950 transition-colors tracking-widest uppercase">Mulai Latihan</span>
                         </div>
                     </div>
                 </article>
 
-                <article onclick="location.href='/kurikulum/putih.html?belt=yellow'" class="premium-card p-8 rounded-[2.5rem] group cursor-pointer">
+                <article onclick="location.href='./kurikulum/kuning.html?belt=yellow'" class="premium-card p-8 rounded-[2.5rem] group cursor-pointer">
                     <div class="w-full h-2 bg-yellow-400 rounded-full mb-8 shadow-sm"></div>
                     <div class="relative z-10">
                         <div class="flex justify-between items-start mb-2">
-                            <span class="text-[10px] font-extrabold text-slate-400 tracking-widest uppercase">Kyu 8-7</span>
+                            <span class="text-[10px] font-extrabold text-slate-400 tracking-widest uppercase">Kyu 8</span>
+                            <span class="text-[8px] font-bold text-green-500 bg-green-50 px-2 py-0.5 rounded-full">FREE</span>
                         </div>
                         <h3 class="font-display font-bold text-2xl text-slate-900 mb-4 group-hover:text-secondary transition-colors">Sabuk Kuning</h3>
                         <p class="text-[11px] text-slate-500 leading-relaxed mb-8">Pemantapan teknik tangkisan (Uke) dan transisi kuda-kuda (Heian Nidan).</p>
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center group-hover:bg-slate-950 group-hover:text-white transition-all duration-500">
-                                <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="zap" class="w-4 h-4 fill-current"></i>
                             </div>
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Masuk Kelas</span>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Mulai Latihan</span>
                         </div>
                     </div>
                 </article>
 
-                <article onclick="location.href='materi.html?belt=green'" class="premium-card p-8 rounded-[2.5rem] group cursor-pointer">
+                <article onclick="location.href='./kurikulum/hijau.html?belt=green'" class="premium-card p-8 rounded-[2.5rem] group cursor-pointer">
                     <div class="w-full h-2 bg-emerald-500 rounded-full mb-8 shadow-sm"></div>
                     <div class="relative z-10">
                         <div class="flex justify-between items-start mb-2">
                             <span class="text-[10px] font-extrabold text-slate-400 tracking-widest uppercase">Kyu 6</span>
+                            <span class="text-[8px] font-bold text-green-500 bg-green-50 px-2 py-0.5 rounded-full">FREE</span>
                         </div>
                         <h3 class="font-display font-bold text-2xl text-slate-900 mb-4 group-hover:text-secondary transition-colors">Sabuk Hijau</h3>
                         <p class="text-[11px] text-slate-500 leading-relaxed mb-8">Kombinasi serangan ganda, kecepatan refleks, dan Kata Heian Sandan.</p>
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center group-hover:bg-slate-950 group-hover:text-white transition-all duration-500">
-                                <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="zap" class="w-4 h-4 fill-current"></i>
                             </div>
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Masuk Kelas</span>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Mulai Latihan</span>
                         </div>
                     </div>
                 </article>
 
-                <article onclick="location.href='materi.html?belt=blue'" class="premium-card p-8 rounded-[2.5rem] group cursor-pointer">
+                <article onclick="location.href='./kurikulum/biru.html?belt=blue'" class="premium-card p-8 rounded-[2.5rem] group cursor-pointer">
                     <div class="w-full h-2 bg-blue-600 rounded-full mb-8 shadow-sm"></div>
                     <div class="relative z-10">
                         <div class="flex justify-between items-start mb-2">
                             <span class="text-[10px] font-extrabold text-slate-400 tracking-widest uppercase">Kyu 5-4</span>
+                            <span class="text-[8px] font-bold text-green-500 bg-green-50 px-2 py-0.5 rounded-full">FREE</span>
                         </div>
                         <h3 class="font-display font-bold text-2xl text-slate-900 mb-4 group-hover:text-secondary transition-colors">Sabuk Biru</h3>
                         <p class="text-[11px] text-slate-500 leading-relaxed mb-8">Akurasi pernapasan, kelenturan dinamis, dan jurus Heian Yondan-Godan.</p>
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center group-hover:bg-slate-950 group-hover:text-white transition-all duration-500">
-                                <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="zap" class="w-4 h-4 fill-current"></i>
                             </div>
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Masuk Kelas</span>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Mulai Latihan</span>
                         </div>
                     </div>
                 </article>
 
-                <article onclick="location.href='materi.html?belt=brown'" class="premium-card p-8 rounded-[2.5rem] group cursor-pointer">
+                <article onclick="location.href='./kurikulum/coklat.html?belt=brown'" class="premium-card p-8 rounded-[2.5rem] group cursor-pointer">
                     <div class="w-full h-2 bg-[#78350F] rounded-full mb-8 shadow-sm border border-black/10"></div>
                     <div class="relative z-10">
                         <div class="flex justify-between items-start mb-2">
                             <span class="text-[10px] font-extrabold text-slate-400 tracking-widest uppercase">Kyu 3-1</span>
+                            <span class="text-[8px] font-bold text-green-500 bg-green-50 px-2 py-0.5 rounded-full">FREE</span>
                         </div>
                         <h3 class="font-display font-bold text-2xl text-slate-900 mb-4 group-hover:text-secondary transition-colors">Sabuk Coklat</h3>
                         <p class="text-[11px] text-slate-500 leading-relaxed mb-8">Tahap pra-sabuk hitam. Fokus pada Kata Tekki Shodan dan strategi kumite.</p>
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center group-hover:bg-slate-950 group-hover:text-white transition-all duration-500">
-                                <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+                                <i data-lucide="zap" class="w-4 h-4 fill-current"></i>
                             </div>
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Masuk Kelas</span>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Mulai Belajar</span>
                         </div>
                     </div>
                 </article>

@@ -90,7 +90,7 @@
                     </div>
                     <span class="text-[9px] font-black text-slate-400 tracking-widest uppercase">Progress: 12%</span>
                 </div>
-                <h2 class="font-display font-bold text-sm text-primary tracking-tight uppercase">Materi Sabuk Kuning</h2>
+                <h2 class="font-display font-bold text-sm text-primary tracking-tight uppercase">Materi Sabuk Coklat</h2>
             </div>
 
             <div class="flex items-center gap-4">
@@ -124,7 +124,7 @@
                                 </span>
                             </div>
                             
-                            <h1 id="main-title" class="font-display font-bold text-3xl md:text-5xl text-primary leading-tight">Materi Sabuk Kuning</h1>
+                            <h1 id="main-title" class="font-display font-bold text-3xl md:text-5xl text-primary leading-tight">Materi Sabuk Coklat</h1>
                             <p id="main-desc" class="mt-8 text-slate-500 text-base leading-relaxed max-w-3xl font-medium">
                                 Pelajari materi dari daftar modul secara berurutan. Perhatikan detail gerakan dalam video. Setelah Anda merasa cukup menguasai teknik tersebut secara mandiri, tekan tombol 'Tandai Sudah Selesai' untuk mencatat kemajuan latihan Anda di papan progres.
                             </p>
@@ -164,26 +164,27 @@
         // DATABASE MATERI (Tetap dipertahankan sesuai struktur Anda)
         const databaseMateri = {
             kihon: [
-            { id: "k1", title: "Gedan Barai", videoId: "dQw4w9WgXcQ", desc: "Tangkisan bawah untuk melindungi area uluh hati hingga lutut.", duration: "00:00" },
-            { id: "k2", title: "Age Uke", videoId: "dQw4w9WgXcQ", desc: "Tangkisan ke arah atas kepala. Tangan membentuk sudut 45 derajat untuk menghalau serangan.", duration: "00:00"},
-            { id: "k3", title: "Shoto Uke", videoId: "dQw4w9WgXcQ", desc: "Tangkisan luar ke dalam. Berguna untuk memblok serangan arah uluhati.", duration: "00:00" },
-            { id: "k4", title: "Uchi Uke", videoId: "dQw4w9WgXcQ", desc: "Tangkisan dari arah dalam ke luar kebalikan dari shoto uke.", duration: "00:00" },
-            { id: "k5", title: "Shuto Uke", videoId: "dQw4w9WgXcQ", desc: "Tangkisan Tangan pedang", duration: "00:00" },
-            { id: "k6", title: "Chudan Tsuki", videoId: "dQw4w9WgXcQ", desc: "Pukulan lurus Arah Uluhati.", duration: "00:00" },
-            { id: "k7", title: "Jodan Tsuki", videoId: "dQw4w9WgXcQ", desc: "Pukulan lurus arah kepala.", duration: "00:00" },
-            { id: "k8", title: "Mae Geri Chudan", videoId: "dQw4w9WgXcQ", desc: "Tendangan lurus arah ulu hati.", duration: "00:00" },
-            { id: "k9", title: "Mae Geri jodan", videoId: "dQw4w9WgXcQ", desc: "Tendangan lurus Arah Kepala.", duration: "00:00" },
-            { id: "k10", title: "Keange Geri", videoId: "dQw4w9WgXcQ", desc: "Tendangan dikipas menyamping.", duration: "00:00" },
-            { id: "k11", title: "Kekome Geri", videoId: "dQw4w9WgXcQ", desc: "Tendangan ditumpuk menggunakan k", duration: "00:00" }
-            // ... Anda bisa lanjut tambahkan ID unik untuk tiap item
-        ],
-        kata: [
-            { id: "kt1", title: "Heian Nidan", videoId: "dQw4w9WgXcQ", desc: "Jurus pertama. Meliputi 20 gerakan dasar Shotokan.", duration: "00:00" },
-            { id: "kt2", title: "Heian Sandan", videoId: "dQw4w9WgXcQ", desc: "Jurus Kedua. Meliputi 20 gerakan dasar Shotokan.", duration: "00:00" }
-        ],
-        kumite: [
-            { id: "km1", title: "Tangkis Balas", videoId: "dQw4w9WgXcQ", desc: "Kumite Tangkis balas yang satu menyerah satunya bertahan secara bersamaan", duration: "00:00" }
-        ]
+                { id: "k1", title: "Gedan Barai + Gyaku Tsuki", videoId: "dQw4w9WgXcQ", desc: "Tangkisan bawah untuk melindungi area uluh hati hingga lutut.", duration: "00:00" },
+                { id: "k2", title: "Age Uke + Gyaku Tsuki", videoId: "dQw4w9WgXcQ", desc: "Tangkisan ke arah atas kepala. Tangan membentuk sudut 45 derajat untuk menghalau serangan.", duration: "00:00"},
+                { id: "k3", title: "Shoto Uke + Empi + Uraken", videoId: "dQw4w9WgXcQ", desc: "Tangkisan luar ke dalam. Berguna untuk memblok serangan arah uluhati.", duration: "00:00" },
+                { id: "k4", title: "Uchi Uke + Kizami + Gyaku Tsuki", videoId: "dQw4w9WgXcQ", desc: "Tangkisan dari arah dalam ke luar kebalikan dari shoto uke.", duration: "00:00" },
+                { id: "k5", title: "Shuto Uke + MaiAshi Geri + Nukite", videoId: "dQw4w9WgXcQ", desc: "Tangkisan Tangan pedang", duration: "00:00" },
+                { id: "k6", title: "Sambon Tsuki", videoId: "dQw4w9WgXcQ", desc: "Pukulan lurus Arah Uluhati.", duration: "00:00" },
+                { id: "k7", title: "Nidan Tsuki", videoId: "dQw4w9WgXcQ", desc: "Pukulan lurus arah kepala.", duration: "00:00" },
+                { id: "k8", title: "Ren Geri", videoId: "dQw4w9WgXcQ", desc: "Tendangan lurus arah ulu hati.", duration: "00:00" },
+                { id: "k9", title: "Keange Kekome 2 Kaki", videoId: "dQw4w9WgXcQ", desc: "Tendangan lurus Arah Kepala.", duration: "00:00" },
+                { id: "k10", title: "Keange Kekome 1 Kaki", videoId: "dQw4w9WgXcQ", desc: "Tendangan dikipas menyamping.", duration: "00:00" },
+                { id: "k11", title: "Mawashi Geri", videoId: "dQw4w9WgXcQ", desc: "Tendangan ditumpuk menggunakan k", duration: "00:00" }
+                // ... Anda bisa lanjut tambahkan ID unik untuk tiap item
+            ],
+            kata: [
+                { id: "kt1", title: "Heian Godan", videoId: "dQw4w9WgXcQ", desc: "Jurus pertama. Meliputi 20 gerakan dasar Shotokan.", duration: "00:00" },
+                { id: "kt2", title: "Tekki Shodan", videoId: "dQw4w9WgXcQ", desc: "Jurus pertama. Meliputi 20 gerakan dasar Shotokan.", duration: "00:00" },
+                { id: "kt3", title: "Bassai Dai", videoId: "dQw4w9WgXcQ", desc: "Jurus pertama. Meliputi 20 gerakan dasar Shotokan.", duration: "00:00" }
+            ],
+            kumite: [
+                { id: "km1", title: "Jiu Ipon Kumite", videoId: "dQw4w9WgXcQ", desc: "Pukulan depan cepat untuk memecah pertahanan lawan.", duration: "00:00" }
+            ]
         };
 
         let currentVideoId = null; // Menyimpan ID materi yang sedang aktif
