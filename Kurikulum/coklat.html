@@ -26,48 +26,22 @@
 
     <style>
         body { background-color: #F8FAFC; color: #0F172A; -webkit-font-smoothing: antialiased; }
-        
-        /* Cinema Mode Effect */
         .video-wrapper {
             aspect-ratio: 16/9;
-            background: #000;
+            background: #0F172A;
             border-radius: 2.5rem;
             overflow: hidden;
             box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
             position: relative;
         }
-
-        .video-overlay {
-            background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
-            pointer-events: none;
-        }
-
-        /* Glassmorphism Playlist */
         .glass-sidebar {
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
-
-        /* Active State Animation */
-        .tab-active { 
-            background: #0F172A !important; 
-            color: white !important; 
-            box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.2);
-        }
-
-        .lesson-item {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .lesson-item.active {
-            background: white;
-            border-color: #3B82F6;
-            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.15);
-            transform: scale(1.02);
-        }
-
-        /* Custom Scrollbar */
+        .tab-active { background: #0F172A !important; color: white !important; box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.2); }
+        .lesson-item { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .lesson-item.active-playing { background: white !important; border: 2px solid #3B82F6 !important; transform: scale(1.03); box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.2); }
         #playlist::-webkit-scrollbar { width: 4px; }
         #playlist::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 10px; }
     </style>
@@ -82,21 +56,17 @@
                 </div>
                 KEMBALI KE ACADEMY
             </a>
-            
             <div class="hidden md:flex flex-col items-center">
                 <div class="flex items-center gap-2 mb-1">
-                    <div class="w-8 h-1 bg-slate-200 rounded-full overflow-hidden">
-                        <div class="w-1/3 h-full bg-secondary"></div>
+                    <div class="w-20 h-1 bg-slate-200 rounded-full overflow-hidden">
+                        <div id="nav-progress-bar" class="w-0 h-full bg-secondary transition-all duration-500"></div>
                     </div>
-                    <span class="text-[9px] font-black text-slate-400 tracking-widest uppercase">Progress: 12%</span>
+                    <span id="nav-progress-text" class="text-[9px] font-black text-slate-400 tracking-widest uppercase">Progress: 0%</span>
                 </div>
-                <h2 class="font-display font-bold text-sm text-primary tracking-tight uppercase">Materi Sabuk Coklat</h2>
+                <h2 class="font-display font-bold text-sm text-primary tracking-tight uppercase">Materi Sabuk Putih</h2>
             </div>
-
-            <div class="flex items-center gap-4">
-                <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center border border-slate-200">
-                    <i data-lucide="user" class="w-4 h-4 text-slate-400"></i>
-                </div>
+            <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center border border-slate-200">
+                <i data-lucide="user" class="w-4 h-4 text-slate-400"></i>
             </div>
         </div>
     </nav>
@@ -106,34 +76,34 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 
                 <div class="lg:col-span-8 space-y-8">
-                    <div class="video-wrapper group">
-                        <iframe id="main-video" class="w-full h-full" src="" frameborder="0" allowfullscreen></iframe>
-                        <div class="video-overlay absolute inset-0"></div>
+                    <div class="video-wrapper group flex items-center justify-center">
+                        <div id="video-placeholder" class="relative z-10 text-center p-8">
+                            <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
+                                <i data-lucide="play" class="text-white fill-current"></i>
+                            </div>
+                            <h3 class="font-display font-bold text-xl text-white">Selamat Datang di Online Dojo</h3>
+                            <p class="text-slate-400 text-sm mt-2">Pilih materi di samping untuk memulai latihan.</p>
+                        </div>
+                        <iframe id="main-video" class="w-full h-full hidden" src="" frameborder="0" allowfullscreen allow="autoplay"></iframe>
                     </div>
 
                     <div class="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-sm relative overflow-hidden">
-                        <div class="absolute -top-10 -right-10 opacity-[0.02]">
-                            <i data-lucide="shield" class="w-48 h-48"></i>
-                        </div>
-
                         <div class="relative z-10">
                             <div class="flex flex-wrap items-center gap-3 mb-6">
                                 <span id="main-category" class="px-4 py-1.5 bg-blue-50 text-blue-600 text-[10px] font-extrabold rounded-full uppercase tracking-widest">Panduan Awal</span>
-                                <span class="px-4 py-1.5 bg-slate-50 text-slate-400 text-[10px] font-extrabold rounded-full uppercase tracking-widest flex items-center gap-2">
+                                <span id="main-type-label" class="px-4 py-1.5 bg-slate-50 text-slate-400 text-[10px] font-extrabold rounded-full uppercase tracking-widest flex items-center gap-2">
                                     <i data-lucide="layers" class="w-3 h-3"></i> Kihon, Kata, & Kumite
                                 </span>
                             </div>
-                            
                             <h1 id="main-title" class="font-display font-bold text-3xl md:text-5xl text-primary leading-tight">Materi Sabuk Coklat</h1>
                             <p id="main-desc" class="mt-8 text-slate-500 text-base leading-relaxed max-w-3xl font-medium">
-                                Pelajari materi dari daftar modul secara berurutan. Perhatikan detail gerakan dalam video. Setelah Anda merasa cukup menguasai teknik tersebut secara mandiri, tekan tombol 'Tandai Sudah Selesai' untuk mencatat kemajuan latihan Anda di papan progres.
+                                Selamat datang di Academy Dojo Yudhistira. Silakan pilih kategori (Kihon, Kata, atau Kumite) modul latihan yang ingin Anda pelajari di daftar sebelah kanan dan masih dalam tahap pengembangan.
                             </p>
-                            
-                            <div class="mt-10 pt-8 border-t border-slate-50 flex items-center gap-6">
-                                <button class="flex items-center gap-3 px-6 py-3 bg-primary text-white rounded-2xl font-bold text-xs hover:bg-secondary transition-all active:scale-95 shadow-lg shadow-slate-900/10">
+                            <div id="action-buttons" class="mt-10 pt-8 border-t border-slate-50 flex items-center gap-6 hidden">
+                                <button id="btn-complete" class="flex items-center gap-3 px-6 py-3 bg-primary text-white rounded-2xl font-bold text-xs hover:bg-secondary transition-all active:scale-95 shadow-lg">
                                     Tandai Sudah Selesai <i data-lucide="check-circle-2" class="w-4 h-4"></i>
                                 </button>
-                                <button class="text-slate-400 hover:text-primary transition-colors">
+                                <button onclick="shareContent()" class="text-slate-400 hover:text-primary transition-colors">
                                     <i data-lucide="share-2" class="w-5 h-5"></i>
                                 </button>
                             </div>
@@ -144,15 +114,12 @@
                 <div class="lg:col-span-4 sticky top-28">
                     <div class="glass-sidebar rounded-[2.5rem] p-6 shadow-xl shadow-slate-200/50">
                         <h3 class="font-display font-bold text-lg text-primary mb-6 px-2">Daftar Modul</h3>
-                        
                         <div class="flex p-1.5 bg-slate-200/50 rounded-2xl mb-8">
                             <button onclick="renderPlaylist('kihon')" id="btn-kihon" class="tab-btn flex-1 py-3 text-[10px] font-bold uppercase rounded-xl transition-all tracking-widest text-slate-500">Kihon</button>
                             <button onclick="renderPlaylist('kata')" id="btn-kata" class="tab-btn flex-1 py-3 text-[10px] font-bold uppercase rounded-xl transition-all tracking-widest text-slate-500">Kata</button>
                             <button onclick="renderPlaylist('kumite')" id="btn-kumite" class="tab-btn flex-1 py-3 text-[10px] font-bold uppercase rounded-xl transition-all tracking-widest text-slate-500">Kumite</button>
                         </div>
-
-                        <div id="playlist" class="space-y-4 max-h-[500px] overflow-y-auto px-2 pb-4">
-                            </div>
+                        <div id="playlist" class="space-y-4 max-h-[500px] overflow-y-auto px-2 pb-4"></div>
                     </div>
                 </div>
 
@@ -161,35 +128,31 @@
     </main>
 
     <script>
-        // DATABASE MATERI (Tetap dipertahankan sesuai struktur Anda)
         const databaseMateri = {
             kihon: [
-                { id: "k1", title: "Gedan Barai + Gyaku Tsuki", videoId: "dQw4w9WgXcQ", desc: "Tangkisan bawah untuk melindungi area uluh hati hingga lutut.", duration: "00:00" },
-                { id: "k2", title: "Age Uke + Gyaku Tsuki", videoId: "dQw4w9WgXcQ", desc: "Tangkisan ke arah atas kepala. Tangan membentuk sudut 45 derajat untuk menghalau serangan.", duration: "00:00"},
-                { id: "k3", title: "Shoto Uke + Empi + Uraken", videoId: "dQw4w9WgXcQ", desc: "Tangkisan luar ke dalam. Berguna untuk memblok serangan arah uluhati.", duration: "00:00" },
-                { id: "k4", title: "Uchi Uke + Kizami + Gyaku Tsuki", videoId: "dQw4w9WgXcQ", desc: "Tangkisan dari arah dalam ke luar kebalikan dari shoto uke.", duration: "00:00" },
-                { id: "k5", title: "Shuto Uke + MaiAshi Geri + Nukite", videoId: "dQw4w9WgXcQ", desc: "Tangkisan Tangan pedang", duration: "00:00" },
-                { id: "k6", title: "Sambon Tsuki", videoId: "dQw4w9WgXcQ", desc: "Pukulan lurus Arah Uluhati.", duration: "00:00" },
-                { id: "k7", title: "Nidan Tsuki", videoId: "dQw4w9WgXcQ", desc: "Pukulan lurus arah kepala.", duration: "00:00" },
-                { id: "k8", title: "Ren Geri", videoId: "dQw4w9WgXcQ", desc: "Tendangan lurus arah ulu hati.", duration: "00:00" },
-                { id: "k9", title: "Keange Kekome 2 Kaki", videoId: "dQw4w9WgXcQ", desc: "Tendangan lurus Arah Kepala.", duration: "00:00" },
-                { id: "k10", title: "Keange Kekome 1 Kaki", videoId: "dQw4w9WgXcQ", desc: "Tendangan dikipas menyamping.", duration: "00:00" },
-                { id: "k11", title: "Mawashi Geri", videoId: "dQw4w9WgXcQ", desc: "Tendangan ditumpuk menggunakan k", duration: "00:00" }
-                // ... Anda bisa lanjut tambahkan ID unik untuk tiap item
+                { id: "k1", title: "Gedan Barai", type: "Tangkisan Bawah", videoId:"dQw4w9WgXcQ", desc: "Tangkisan bawah untuk melindungi area ulu hati hingga lutut. Fokus pada rotasi pinggul dan kuda-kuda Zenkutsu Dachi.", duration: "03:15" },
+                { id: "k2", title: "Age Uke", type: "Tangkisan Atas", videoId: "dQw4w9WgXcQ", desc: "Tangkisan ke arah atas kepala. Tangan membentuk sudut 45 derajat untuk menghalau serangan dari atas.", duration: "02:40"},
+                { id: "k3", title: "Shoto Uke", type: "Tangkisan Tengah", videoId: "dQw4w9WgXcQ", desc: "Tangkisan luar ke dalam. Berguna untuk memblok serangan arah ulu hati.", duration: "04:10" },
+                { id: "k4", title: "Uchi Uke", type: "Tangkisan Dalam", videoId: "dQw4w9WgXcQ", desc: "Tangkisan dari arah dalam ke luar, kebalikan dari uchi uke.", duration: "04:10" },
+                { id: "k5", title: "Shuto Uke", type: "Tangan Pedang", videoId: "dQw4w9WgXcQ", desc: "Tangkisan menggunakan sisi luar telapak tangan dengan kuda-kuda Kokutsu Dachi.", duration: "04:10" },
+                { id: "k6", title: "Chudan Tsuki", type: "Teknik Pukulan", videoId: "dQw4w9WgXcQ", desc: "Pukulan lurus bertenaga ke arah ulu hati lawan.", duration: "02:20" },
+                { id: "k7", title: "Jodan Tsuki", type: "Teknik Pukulan", videoId: "dQw4w9WgXcQ", desc: "Pukulan lurus ke arah area wajah atau kepala lawan.", duration: "02:20" },
+                { id: "k8", title: "Mae Geri Chudan", type: "Teknik Tendangan", videoId: "dQw4w9WgXcQ", desc: "Tendangan depan lurus bertenaga searah ulu hati.", duration: "03:45" },
+                { id: "k9", title: "Mae Geri Jodan", type: "Teknik Tendangan", videoId: "dQw4w9WgXcQ", desc: "Tendangan depan lurus bertenaga searah kepala.", duration: "03:45" },
+                { id: "k10", title: "Keange Geri", type: "Tendangan Snap", videoId: "dQw4w9WgXcQ", desc: "Tendangan menyamping dengan sentakan cepat (snap kick).", duration: "04:00" },
+                { id: "k11", title: "Kekome Geri", type: "Tendangan Dorong", videoId: "dQw4w9WgXcQ", desc: "Tendangan menyamping dengan dorongan kuat (thrust kick).", duration: "04:00" }
             ],
             kata: [
-                { id: "kt1", title: "Heian Godan", videoId: "dQw4w9WgXcQ", desc: "Jurus pertama. Meliputi 20 gerakan dasar Shotokan.", duration: "00:00" },
-                { id: "kt2", title: "Tekki Shodan", videoId: "dQw4w9WgXcQ", desc: "Jurus pertama. Meliputi 20 gerakan dasar Shotokan.", duration: "00:00" },
-                { id: "kt3", title: "Bassai Dai", videoId: "dQw4w9WgXcQ", desc: "Jurus pertama. Meliputi 20 gerakan dasar Shotokan.", duration: "00:00" }
+                { id: "kt1", title: "Heian Shodan", type: "Jurus Dasar 1", videoId: "dQw4w9WgXcQ", desc: "Jurus pertama Sabuk Putih. Meliputi 20 gerakan dasar Shotokan.", duration: "05:50" },
+                { id: "kt2", title: "Heian Nidan", type: "Jurus Dasar 2", videoId: "dQw4w9WgXcQ", desc: "Jurus kedua dengan kombinasi tangkisan dan serangan tingkat lanjut.", duration: "06:10" }
             ],
             kumite: [
-                { id: "km1", title: "Jiu Ipon Kumite", videoId: "dQw4w9WgXcQ", desc: "Pukulan depan cepat untuk memecah pertahanan lawan.", duration: "00:00" }
+                { id: "km1", title: "Tangkis Balas", type: "Latihan Pasangan", videoId: "dQw4w9WgXcQ", desc: "Simulasi pertarungan dasar: satu menyerang, satu bertahan lalu membalas.", duration: "05:00" }
             ]
         };
 
-        let currentVideoId = null; // Menyimpan ID materi yang sedang aktif
+        let currentVideoId = null;
 
-        // 1. LOGIKA PROGRESS & STORAGE
         function getCompletedLessons() {
             const completed = localStorage.getItem('yudhistira_progress');
             return completed ? JSON.parse(completed) : [];
@@ -198,74 +161,26 @@
         function updateProgressUI() {
             const completed = getCompletedLessons();
             const allLessons = Object.values(databaseMateri).flat();
-            const total = allLessons.length;
-            const count = completed.length;
-            const percentage = Math.round((count / total) * 100);
-
-            // Update Text & Bar
-            const progressBar = document.querySelector('.bg-secondary');
-            const progressText = document.querySelector('span.text-\\[9px\\]');
-            
-            if (progressBar) progressBar.style.width = `${percentage}%`;
-            if (progressText) progressText.innerText = `PROGRESS: ${percentage}%`;
+            const percentage = Math.round((completed.length / allLessons.length) * 100);
+            const bar = document.getElementById('nav-progress-bar');
+            const txt = document.getElementById('nav-progress-text');
+            if(bar) bar.style.width = `${percentage}%`;
+            if(txt) txt.innerText = `PROGRESS: ${percentage}%`;
         }
 
-        // 2. FUNGSI TANDAI SELESAI
-        function toggleComplete() {
-            if (!currentVideoId) return;
-
-            let completed = getCompletedLessons();
-            const btn = document.querySelector('#btn-complete');
-            
-            if (completed.includes(currentVideoId)) {
-                completed = completed.filter(id => id !== currentVideoId);
-                btn.innerHTML = `Tandai Sudah Selesai <i data-lucide="check-circle-2" class="w-4 h-4"></i>`;
-                btn.classList.replace('bg-green-600', 'bg-primary');
-            } else {
-                completed.push(currentVideoId);
-                btn.innerHTML = `Selesai Ditonton <i data-lucide="check" class="w-4 h-4"></i>`;
-                btn.classList.replace('bg-primary', 'bg-green-600');
-                
-                // Efek kembang api kecil/konfeti sederhana jika ingin
-                gsap.to(btn, { scale: 1.1, duration: 0.1, yoyo: true, repeat: 1 });
-            }
-
-            localStorage.setItem('yudhistira_progress', JSON.stringify(completed));
-            updateProgressUI();
-            renderPlaylist(document.querySelector('.tab-active').id.replace('btn-', ''));
-            lucide.createIcons();
-        }
-
-        // 3. FUNGSI SHARE (Web Share API)
-        async function shareContent() {
-            const title = document.getElementById('main-title').innerText;
-            const url = window.location.href;
-
-            if (navigator.share) {
-                try {
-                    await navigator.share({ title: `Latihan Karate: ${title}`, url: url });
-                } catch (err) { console.log('Batal share'); }
-            } else {
-                navigator.clipboard.writeText(url);
-                alert('Link materi berhasil disalin ke clipboard!');
-            }
-        }
-
-        // 4. LOGIKA RENDER & PLAY (DIKEMBANGKAN)
         function renderPlaylist(category) {
             const container = document.getElementById('playlist');
             const data = databaseMateri[category];
             const completed = getCompletedLessons();
             container.innerHTML = '';
-
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('tab-active'));
             document.getElementById('btn-' + category).classList.add('tab-active');
 
             data.forEach((item) => {
                 const isDone = completed.includes(item.id);
+                const isPlaying = currentVideoId === item.id;
                 const card = document.createElement('div');
-                card.className = `lesson-item group p-5 rounded-3xl border border-transparent bg-white/40 hover:bg-white flex items-center gap-5 cursor-pointer border-slate-100 ${isDone ? 'opacity-80' : ''}`;
-                
+                card.className = `lesson-item group p-5 rounded-3xl border border-transparent bg-white/40 hover:bg-white flex items-center gap-5 cursor-pointer border-slate-100 ${isPlaying ? 'active-playing' : ''}`;
                 card.innerHTML = `
                     <div class="w-12 h-12 ${isDone ? 'bg-green-500' : 'bg-slate-900'} rounded-2xl flex items-center justify-center text-white shrink-0 group-hover:bg-secondary transition-all shadow-lg">
                         <i data-lucide="${isDone ? 'check' : 'play'}" class="w-4 h-4 fill-current"></i>
@@ -273,12 +188,12 @@
                     <div class="flex-1">
                         <div class="flex items-center gap-2">
                             <h4 class="font-bold text-sm text-primary leading-tight">${item.title}</h4>
-                            ${isDone ? '<span class="text-[8px] bg-green-100 text-green-600 px-1.5 py-0.5 rounded-full font-black uppercase">Lulus</span>' : ''}
+                            ${isDone ? '<span class="text-[8px] bg-green-100 text-green-600 px-1.5 py-0.5 rounded-full font-black uppercase">Selesai</span>' : ''}
                         </div>
-                        <div class="flex items-center gap-3 mt-1">
-                            <span class="text-[9px] font-black text-slate-300 uppercase tracking-widest">${category}</span>
+                        <div class="flex items-center gap-3 mt-1 text-[9px] font-black text-slate-300 uppercase">
+                            <span>${category}</span>
                             <span class="w-1 h-1 bg-slate-200 rounded-full"></span>
-                            <span class="text-[9px] font-bold text-slate-400 uppercase">${item.duration}</span>
+                            <span>${item.duration}</span>
                         </div>
                     </div>
                 `;
@@ -290,10 +205,13 @@
 
         function playVideo(item, category) {
             currentVideoId = item.id;
-            const completed = getCompletedLessons();
-            const btn = document.querySelector('#btn-complete');
+            document.getElementById('video-placeholder').classList.add('hidden');
+            document.getElementById('main-video').classList.remove('hidden');
+            document.getElementById('action-buttons').classList.remove('hidden');
 
-            // Update status tombol sesuai data storage
+            const completed = getCompletedLessons();
+            const btn = document.getElementById('btn-complete');
+
             if (completed.includes(item.id)) {
                 btn.innerHTML = `Selesai Ditonton <i data-lucide="check" class="w-4 h-4"></i>`;
                 btn.classList.replace('bg-primary', 'bg-green-600');
@@ -302,28 +220,50 @@
                 btn.classList.replace('bg-green-600', 'bg-primary');
             }
 
-            gsap.to("#main-video, #main-title, #main-desc", { opacity: 0, y: 10, duration: 0.3, onComplete: () => {
+            gsap.to("#main-video, #main-title, #main-desc", { opacity: 0, y: 10, duration: 0.2, onComplete: () => {
                 document.getElementById('main-video').src = `https://www.youtube.com/embed/${item.videoId}?autoplay=1&rel=0&modestbranding=1`;
                 document.getElementById('main-title').innerText = item.title;
                 document.getElementById('main-desc').innerText = item.desc;
                 document.getElementById('main-category').innerText = category;
-                gsap.to("#main-video, #main-title, #main-desc", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" });
+                document.getElementById('main-type-label').innerHTML = `<i data-lucide="shield" class="w-3 h-3"></i> ${item.type}`;
+                gsap.to("#main-video, #main-title, #main-desc", { opacity: 1, y: 0, duration: 0.4 });
                 lucide.createIcons();
             }});
+            renderPlaylist(category);
         }
 
-        // Inisialisasi Event Listener pada Tombol yang sudah ada di HTML Anda
+        function toggleComplete() {
+            if (!currentVideoId) return;
+            let completed = getCompletedLessons();
+            const activeCategory = document.querySelector('.tab-active').id.replace('btn-', '');
+            if (completed.includes(currentVideoId)) {
+                completed = completed.filter(id => id !== currentVideoId);
+            } else {
+                completed.push(currentVideoId);
+                gsap.to("#btn-complete", { scale: 1.05, duration: 0.1, yoyo: true, repeat: 1 });
+            }
+            localStorage.setItem('yudhistira_progress', JSON.stringify(completed));
+            updateProgressUI();
+            const currentItem = databaseMateri[activeCategory].find(i => i.id === currentVideoId);
+            playVideo(currentItem, activeCategory);
+        }
+
+        async function shareContent() {
+            const title = document.getElementById('main-title').innerText;
+            if (navigator.share) {
+                try { await navigator.share({ title: `Dojo Yudhistira: ${title}`, url: window.location.href }); } catch (err) {}
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                alert('Link disalin!');
+            }
+        }
+
         window.onload = () => {
+            window.scrollTo(0, 0); 
             renderPlaylist('kihon');
             updateProgressUI();
-
-            // Hubungkan ID tombol dari HTML ke fungsi baru
-            const completeBtn = document.querySelector('button.bg-primary');
-            completeBtn.id = "btn-complete"; // Memberi ID agar mudah diakses
-            completeBtn.onclick = toggleComplete;
-
-            const shareBtn = document.querySelector('button i[data-lucide="share-2"]').parentElement;
-            shareBtn.onclick = shareContent;
+            document.getElementById('btn-complete').onclick = toggleComplete;
+            lucide.createIcons();
         };
     </script>
 </body>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Siswa — Dojo Yudhistira</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+                    colors: { primary: '#0F172A', secondary: '#3B82F6' }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 min-h-screen flex items-center justify-center p-6">
+
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] bg-blue-200/20 rounded-full blur-[100px]"></div>
+        <div class="absolute top-[40%] -right-[10%] w-[40%] h-[40%] bg-amber-200/20 rounded-full blur-[100px]"></div>
+    </div>
+
+    <div class="bg-white w-full max-w-md p-8 md:p-10 rounded-[2.5rem] shadow-2xl shadow-slate-200/50 relative z-10 border border-slate-100">
+        
+        <div class="text-center mb-10">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-slate-50 rounded-2xl mb-6 text-secondary">
+                <i data-lucide="shield-check" class="w-8 h-8"></i>
+            </div>
+            <h1 class="text-2xl font-extrabold text-primary mb-2">Portal Atlet</h1>
+            <p class="text-slate-400 text-sm font-medium">Masukan ID Anggota untuk mengakses materi Kelas Prestasi.</p>
+        </div>
+
+        <form id="loginForm" class="space-y-5">
+            
+            <div class="space-y-2">
+                <label class="text-xs font-bold text-slate-900 uppercase tracking-widest ml-2">ID Anggota</label>
+                <div class="relative group">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-secondary transition-colors">
+                        <i data-lucide="user" class="w-5 h-5"></i>
+                    </div>
+                    <input type="text" id="username" placeholder="Contoh: ATLET01" 
+                        class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl py-4 pl-12 pr-4 text-sm font-bold text-primary placeholder:text-slate-300 focus:outline-none focus:border-secondary focus:bg-white transition-all"
+                        required
+                    >
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <label class="text-xs font-bold text-slate-900 uppercase tracking-widest ml-2">Kata Sandi</label>
+                <div class="relative group">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-secondary transition-colors">
+                        <i data-lucide="lock" class="w-5 h-5"></i>
+                    </div>
+                    <input type="password" id="password" placeholder="••••••••" 
+                        class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl py-4 pl-12 pr-4 text-sm font-bold text-primary placeholder:text-slate-300 focus:outline-none focus:border-secondary focus:bg-white transition-all"
+                        required
+                    >
+                </div>
+            </div>
+
+            <div id="errorMessage" class="hidden p-3 bg-red-50 text-red-500 text-xs font-bold rounded-xl text-center flex items-center justify-center gap-2">
+                <i data-lucide="alert-circle" class="w-4 h-4"></i> ID atau Kata Sandi salah!
+            </div>
+
+            <button type="submit" class="w-full bg-primary text-white py-4 rounded-2xl font-bold text-sm hover:bg-secondary hover:shadow-lg hover:shadow-blue-500/30 active:scale-95 transition-all flex justify-center items-center gap-2 mt-4">
+                <span id="btnText">MASUK PORTAL</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+
+        </form>
+
+        <div class="mt-8 text-center">
+            <a href="../index.html" class="text-xs font-bold text-slate-400 hover:text-primary transition-colors">Kembali ke Beranda</a>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // LOGIKA LOGIN SEDERHANA
+        const loginForm = document.getElementById('loginForm');
+        const errorMsg = document.getElementById('errorMessage');
+        const btnText = document.getElementById('btnText');
+
+        // DATABASE DUMMY (Ganti username/password di sini)
+        const validCredentials = {
+            username: "ATLET01",
+            password: "123" 
+        };
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Ambil value input
+            const user = document.getElementById('username').value.toUpperCase(); // Biar tidak case sensitive
+            const pass = document.getElementById('password').value;
+
+            // Efek Loading
+            btnText.innerText = "MEMERIKSA...";
+            
+            setTimeout(() => {
+                // Cek apakah data benar
+                if (user === validCredentials.username && pass === validCredentials.password) {
+                    
+                    // 1. Simpan tanda "Sudah Login" di browser
+                    localStorage.setItem('isAthleteLoggedIn', 'true');
+                    localStorage.setItem('athleteName', 'Razaq'); // Opsional: Simpan nama
+
+                    // 2. Arahkan ke halaman Dashboard Atlit
+                    // Pastikan kamu punya file bernama 'dashboard-atlit.html' atau sesuaikan namanya
+                    window.location.href = 'kelas atlit/dashboard-atlit.html'; 
+
+                } else {
+                    // Jika Salah
+                    errorMsg.classList.remove('hidden');
+                    btnText.innerText = "MASUK PORTAL";
+                    
+                    // Goyangkan input (Animation shake)
+                    document.getElementById('password').classList.add('border-red-500');
+                    setTimeout(() => {
+                        document.getElementById('password').classList.remove('border-red-500');
+                    }, 500);
+                }
+            }, 1000); // Simulasi delay 1 detik biar keren
+        });
+    </script>
+</body>
+</html>

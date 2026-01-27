@@ -146,7 +146,35 @@
                 <a href="#home" class="text-sm font-medium text-gray-500 hover:text-primary transition-colors">Beranda</a>
                 <a href="#about" class="text-sm font-medium text-gray-500 hover:text-primary transition-colors">Tentang</a>
                 <a href="#programs" class="text-sm font-medium text-gray-500 hover:text-primary transition-colors">Program</a>
-                <a href="onlinedojo.html" class="text-sm font-medium text-gray-500 hover:text-primary transition-colors">Kelas Online</a>
+                <div class="relative group">
+                    <button class="flex items-center gap-1 text-sm font-medium text-gray-500 hover:text-primary transition-colors focus:outline-none py-2">
+                        Kelas Online
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-hover:rotate-180"></i>
+                    </button>
+                
+                    <div class="absolute top-full left-0 w-48 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 p-2">
+                        
+                        <a href="onlinedojo.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-blue-50 group/item transition-colors">
+                            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 group-hover/item:bg-blue-600 group-hover/item:text-white transition-all">
+                                <i data-lucide="users" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-700">Reguler</p>
+                                <p class="text-[10px] text-gray-400">Materi Dasar</p>
+                            </div>
+                        </a>
+                
+                        <a href="login.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-amber-50 group/item transition-colors mt-1">
+                            <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 group-hover/item:bg-amber-600 group-hover/item:text-white transition-all">
+                                <i data-lucide="lock" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-gray-700">Atlet</p>
+                                <p class="text-[10px] text-gray-400">Login Diperlukan</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
                 <a href="#gallery" class="text-sm font-medium text-gray-500 hover:text-primary transition-colors">Galeri</a>
                 <a href="#faq" class="text-sm font-medium text-gray-500 hover:text-primary transition-colors">FAQ</a>
             </div>
@@ -315,7 +343,7 @@
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-4">
                 <div class="max-w-xl">
                     <span class="text-secondary font-bold tracking-widest uppercase text-xs">unggulan</span>
-                    <h2 class="font-display font-bold text-3xl md:text-4xl mt-2 text-primary">Program Kegiatan</h2>
+                    <h2 id= "program" class="font-display font-bold text-3xl md:text-4xl mt-2 text-primary">Program Kegiatan</h2>
                 </div>
                 <div class="hidden md:flex gap-2">
                     <div class="text-xs text-muted self-center mr-2">Scroll untuk melihat</div>
@@ -330,7 +358,7 @@
                     </div>
                     <h3 class="font-bold text-lg text-primary mb-2">Kejuaraan Open & Festival</h3>
                     <p class="text-sm text-muted line-clamp-3 mb-4 flex-1">Program kejuaraan mulai tingkat kabupaten hingga nasional baik festival maupun open turnamen, dilaksanakan satu semester minimal 2 kali untuk membina mental dan pengalaman bertanding. Partisipasi atlet bergantung pada kesiapan latihan serta dukungan orang tua. Hasil kejuaraan dievaluasi secara rutin untuk meningkatkan kualitas teknik dan mengharumkan nama dojo hingga kancah internasional.</p>
-                    <div class="mt-auto flex items-center gap-2 text-sm font-bold text-secondary">
+                    <div id="Open" class="mt-auto flex items-center gap-2 text-sm font-bold text-secondary">
                         Detail Program <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                     </div>
                 </div>
@@ -352,7 +380,7 @@
                         <img src="IMG/Sdg kihon.jpeg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                         <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-[10px] font-bold px-2 py-1 rounded-full uppercase">Prestasi</div>
                     </div>
-                    <h3 class="font-bold text-lg text-primary mb-2">Yudhistira Championship</h3>
+                    <h3 id= "Yushistira-Championship" class="font-bold text-lg text-primary mb-2">Yudhistira Championship</h3>
                     <p class="text-sm text-muted line-clamp-3 mb-4 flex-1">Merupakan Pertandingan internal bagian dari program pembinaan prestasi yang bertujuan untuk mengukur perkembangan teknik, mental tanding, serta kesiapan karateka sebelum mengikuti kejuaraan tingkat yang lebih tinggi. Setiap anggota usia di atas 7 tahun diwajibkan mengikuti pertandingan internal yang diselenggarakan dojo. Partisipasi ini penting sebagai proses evaluasi kemampuan sekaligus sarana pembentukan mental kompetitif yang sehat. Wali murid juga diharapkan ikut mendampingi dan memberikan dukungan penuh selama kegiatan berlangsung, karena keterlibatan orang tua memiliki peranan besar dalam menumbuhkan motivasi dan kepercayaan diri anak.</p>
                     <div class="mt-auto flex items-center gap-2 text-sm font-bold text-secondary">
                         Detail Program <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
@@ -616,10 +644,10 @@
                         melahirkan generasi karateka unggul, Pemimpin berkarakter, dan berprestasi di tengah tantangan era digitalisasi melalui seni beladiri Karate.
                     </p>
                     <div class="flex gap-4 justify-center md:justify-start">
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary transition text-white">
+                        <a href="https://www.instagram.com/dojoyudhistira/" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary transition text-white">
                             <i data-lucide="instagram" class="w-5 h-5"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-green-500 transition text-white">
+                        <a href="https://wa.me/6283807757383?text=Assalamualaikum%20%20senpai%,%20saya%20ingin%20menanyakan%20informasi%20mengenai%20jadwal%20latihan%20dan%20prosedur%20pendaftaran%20anggota%20baru.%20Terima%20kasih." class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-green-500 transition text-white">
                             <i data-lucide="message-circle" class="w-5 h-5"></i>
                         </a>
                     </div>
@@ -639,10 +667,10 @@
                 <div class="text-center md:text-left">
                     <h4 class="font-bold text-lg mb-6">Program</h4>
                     <ul class="space-y-4 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-white transition">Kelas Reguler</a></li>
-                        <li><a href="#" class="hover:text-white transition">Kelas Prestasi</a></li>
-                        <li><a href="#" class="hover:text-white transition">Ujian Kenaikan</a></li>
-                        <li><a href="#" class="hover:text-white transition">Private Coaching</a></li>
+                        <li><a href="#Yushistira-Championship" class="hover:text-white transition">Yudhistira Championship</a></li>
+                        <li><a href="#program" class="hover:text-white transition">Kejuaraan Open & Festival</a></li>
+                        <li><a href="#program" class="hover:text-white transition">Ujian Kenaikan tingkat Sabuk</a></li>
+                        <li><a href="#onlinedojo.html" class="hover:text-white transition">Kelas Online </a></li>
                     </ul>
                 </div>
 
@@ -651,7 +679,7 @@
                     <ul class="space-y-4 text-sm text-gray-400 flex flex-col items-center md:items-start">
                         <li class="flex items-start gap-3">
                             <i data-lucide="map-pin" class="w-5 h-5 text-secondary shrink-0 mt-0.5"></i>
-                            <span class="text-left">GOR Serbaguna PT. Yudhistira Ghalia Indonesia,<br>Desa Bojong Kerta, Kabupaten Bogor, Jawa Barat</span>
+                            <span class="text-left">GOR Serbaguna PT. Yudhistira Ghalia Indonesia,<br>Desa Bojong Kerta, Kota Bogor, Jawa Barat</span>
                         </li>
                         <li class="flex items-center gap-3">
                             <i data-lucide="phone" class="w-5 h-5 text-secondary shrink-0"></i>
@@ -748,7 +776,7 @@
             // Text Reveal
             tl.to("#loader-text", { y: 0, duration: 1, ease: "power4.out" })
               .to("#loader-sub", { opacity: 1, duration: 0.5 }, "-=0.5")
-              .to("#preloader", { y: "-100%", duration: 0.8, ease: "power4.inOut", delay: 0.5 });
+              .to("#preloader", { y: "-100%", duration: 0.6, ease: "power4.inOut", delay: 0.3 });
 
             // Hero Image Reveal
             tl.to(".reveal-img", {
