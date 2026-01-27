@@ -147,30 +147,28 @@
                 <a href="#about" class="text-sm font-medium text-gray-500 hover:text-primary transition-colors">Tentang</a>
                 <a href="#programs" class="text-sm font-medium text-gray-500 hover:text-primary transition-colors">Program</a>
                 <div class="relative group">
-                    <button class="flex items-center gap-1 text-sm font-medium text-gray-500 hover:text-primary transition-colors focus:outline-none py-2">
+                    <button class="flex items-center gap-1.5 text-sm font-semibold text-slate-600 hover:text-primary transition-colors focus:outline-none py-2">
                         Kelas Online
                         <i data-lucide="chevron-down" class="w-4 h-4 transition-transform group-hover:rotate-180"></i>
                     </button>
                 
-                    <div class="absolute top-full left-0 w-48 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 p-2">
+                    <div class="absolute top-full left-0 w-44 bg-white rounded-xl border border-slate-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-1 p-1.5 shadow-sm">
                         
-                        <a href="onlinedojo.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-blue-50 group/item transition-colors">
-                            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 group-hover/item:bg-blue-600 group-hover/item:text-white transition-all">
-                                <i data-lucide="users" class="w-4 h-4"></i>
-                            </div>
+                        <a href="onlinedojo.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-50 transition-colors">
+                            <i data-lucide="users" class="w-4 h-4 text-slate-400"></i>
                             <div>
-                                <p class="text-sm font-bold text-gray-700">Reguler</p>
-                                <p class="text-[10px] text-gray-400">Materi Dasar</p>
+                                <p class="text-xs font-bold text-slate-700">Kelas Reguler</p>
+                                <p class="text-[9px] text-slate-400 leading-tight">Materi Dasar</p>
                             </div>
                         </a>
                 
-                        <a href="login.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-amber-50 group/item transition-colors mt-1">
-                            <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 group-hover/item:bg-amber-600 group-hover/item:text-white transition-all">
-                                <i data-lucide="lock" class="w-4 h-4"></i>
-                            </div>
+                        <div class="h-px bg-slate-100 my-1 mx-2"></div>
+                
+                        <a href="login.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-50 transition-colors">
+                            <i data-lucide="lock" class="w-4 h-4 text-slate-400"></i>
                             <div>
-                                <p class="text-sm font-bold text-gray-700">Atlet</p>
-                                <p class="text-[10px] text-gray-400">Login Diperlukan</p>
+                                <p class="text-xs font-bold text-slate-700">Kelas Prestasi</p>
+                                <p class="text-[9px] text-slate-400 leading-tight">Portal Khusus</p>
                             </div>
                         </a>
                     </div>
@@ -205,10 +203,35 @@
                 <a href="#about" class="mobile-link text-xl font-display font-bold text-muted hover:text-primary py-3 border-b border-gray-50 transition-colors">Tentang Kami</a>
                 <a href="#programs" class="mobile-link text-xl font-display font-bold text-muted hover:text-primary py-3 border-b border-gray-50 transition-colors">Program Latihan</a>
                 
-                <a href="onlinedojo.html" class="mobile-link text-xl font-display font-bold text-secondary hover:text-primary py-3 border-b border-gray-50 transition-colors flex items-center justify-between">
-                    Kelas Online
-                    <span class="text-[8px] bg-red-500 text-white px-2 py-0.5 rounded-full animate-pulse">NEW</span>
-                </a>
+                <div class="border-b border-gray-50 overflow-hidden">
+                    <button onclick="toggleMobileSubmenu()" class="w-full flex items-center justify-between py-3 text-xl font-display font-bold text-secondary transition-colors focus:outline-none">
+                        <span class="flex items-center gap-2">
+                            Kelas Online
+                            <span class="text-[8px] bg-red-500 text-white px-2 py-0.5 rounded-full animate-pulse">NEW</span>
+                        </span>
+                        <i data-lucide="chevron-down" id="mobile-submenu-icon" class="w-5 h-5 transition-transform duration-300"></i>
+                    </button>
+                    
+                    <div id="mobile-submenu-content" class="max-h-0 opacity-0 overflow-hidden transition-all duration-300 bg-slate-50/50 rounded-xl">
+                        <div class="flex flex-col py-2 px-4 gap-1">
+                            <a href="onlinedojo.html" class="mobile-link flex items-center gap-3 py-3 text-muted hover:text-primary transition-colors">
+                                <i data-lucide="users" class="w-4 h-4 text-slate-400"></i>
+                                <div>
+                                    <p class="text-sm font-bold">Kelas Reguler</p>
+                                    <p class="text-[10px] opacity-70">Materi Dasar & Menengah</p>
+                                </div>
+                            </a>
+                            <div class="h-px bg-gray-100"></div>
+                            <a href="login.html" class="mobile-link flex items-center gap-3 py-3 text-muted hover:text-primary transition-colors">
+                                <i data-lucide="lock" class="w-4 h-4 text-slate-400"></i>
+                                <div>
+                                    <p class="text-sm font-bold">Kelas Prestasi</p>
+                                    <p class="text-[10px] opacity-70">Portal Khusus Atlet</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 
                 <a href="#gallery" class="mobile-link text-xl font-display font-bold text-muted hover:text-primary py-3 border-b border-gray-50 transition-colors">Galeri</a>
                 <a href="#faq" class="mobile-link text-xl font-display font-bold text-muted hover:text-primary py-3 border-b border-gray-50 transition-colors">FAQ</a>
@@ -923,7 +946,43 @@
                 navbar.classList.add('bg-white/90');
             }
         });
-
+        
+        // 8. Mobile Submenu Logic
+        function toggleMobileSubmenu() {
+            const content = document.getElementById('mobile-submenu-content');
+            const icon = document.getElementById('mobile-submenu-icon');
+            
+            // Logika buka tutup
+            if (content.style.maxHeight === "0px" || content.style.maxHeight === "") {
+                content.style.maxHeight = "300px"; // Memberikan ruang cukup untuk submenu
+                content.style.opacity = "1";
+                icon.style.transform = "rotate(180deg)";
+            } else {
+                content.style.maxHeight = "0px";
+                content.style.opacity = "0";
+                icon.style.transform = "rotate(0deg)";
+            }
+        }
+        
+        // Tambahan: Pastikan saat menu mobile ditutup, submenu juga ikut reset ke posisi tertutup
+        function closeMobileMenu() {
+            mobileContent.classList.add('translate-x-full');
+            mobileMenu.classList.add('opacity-0');
+            
+            // Reset submenu jika sedang terbuka
+            const content = document.getElementById('mobile-submenu-content');
+            const icon = document.getElementById('mobile-submenu-icon');
+            if(content) {
+                content.style.maxHeight = "0px";
+                content.style.opacity = "0";
+                icon.style.transform = "rotate(0deg)";
+            }
+        
+            setTimeout(() => { 
+                mobileMenu.classList.add('invisible'); 
+                document.body.style.overflow = '';
+            }, 300);
+        }
     </script>
 </body>
 </html>

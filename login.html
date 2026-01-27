@@ -39,7 +39,7 @@
         <form id="loginForm" class="space-y-5">
             
             <div class="space-y-2">
-                <label class="text-xs font-bold text-slate-900 uppercase tracking-widest ml-2">ID Anggota</label>
+                <label class="text-xs font-bold text-slate-900 uppercase tracking-widest ml-2">Nama Singkat</label>
                 <div class="relative group">
                     <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-secondary transition-colors">
                         <i data-lucide="user" class="w-5 h-5"></i>
@@ -52,7 +52,7 @@
             </div>
 
             <div class="space-y-2">
-                <label class="text-xs font-bold text-slate-900 uppercase tracking-widest ml-2">Kata Sandi</label>
+                <label class="text-xs font-bold text-slate-900 uppercase tracking-widest ml-2">ID Anggota</label>
                 <div class="relative group">
                     <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-secondary transition-colors">
                         <i data-lucide="lock" class="w-5 h-5"></i>
@@ -83,51 +83,55 @@
     <script>
         lucide.createIcons();
 
-        // LOGIKA LOGIN SEDERHANA
         const loginForm = document.getElementById('loginForm');
         const errorMsg = document.getElementById('errorMessage');
         const btnText = document.getElementById('btnText');
 
-        // DATABASE DUMMY (Ganti username/password di sini)
-        const validCredentials = {
-            username: "ATLET01",
-            password: "123" 
-        };
+        // DAFTAR 32 NIKH KOHAI (Sesuai List yang Kamu Berikan)
+        const daftarNIKH = [
+            "K.2505A SR", "K.2510ANP", "K.2505AFR", "K.2507AFM", "K.2505AN",
+            "K.2507FA", "K.2505FAA", "K.2505KRD", "K.2507KTR", "K.2507MGS",
+            "K.2509MKPR", "K.2507AFD", "K.2510MIEL", "K.2512TAK", "K.2507MFA",
+            "K.2505MAS", "K.2510MA", "K.2512CKK", "K.2509MIF", "K.2510MWAB",
+            "K.2507NY", "K.2507QAN", "K.2505QFR", "K.2507RAZW", "K.2507RRRSS",
+            "K.2505RAM", "K.2507SPC", "K.2507SNF", "K.2507SK", "K.2507SZH",
+            "K.25011SH", "K.2511KMZ", "COACH1", "COACH2", "COACH3" 
+        ];
 
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            // Ambil value input
-            const user = document.getElementById('username').value.toUpperCase(); // Biar tidak case sensitive
-            const pass = document.getElementById('password').value;
+            const inputNama = document.getElementById('username').value.trim();
+            // Password diisi NIKH (contoh: K.2510ANP)
+            const inputID = document.getElementById('password').value.toUpperCase().trim();
 
-            // Efek Loading
-            btnText.innerText = "MEMERIKSA...";
+            btnText.innerText = "VALIDASI DATA...";
+            errorMsg.classList.add('hidden');
             
             setTimeout(() => {
-                // Cek apakah data benar
-                if (user === validCredentials.username && pass === validCredentials.password) {
-                    
-                    // 1. Simpan tanda "Sudah Login" di browser
+                // Logika pengecekan ID
+                const idValid = daftarNIKH.includes(inputID);
+
+                if (idValid) {
+                    // Berhasil Login
                     localStorage.setItem('isAthleteLoggedIn', 'true');
-                    localStorage.setItem('athleteName', 'Razaq'); // Opsional: Simpan nama
+                    // Simpan nama acak yang mereka masukkan agar bisa disapa di dashboard
+                    localStorage.setItem('athleteName', inputNama || "Kohai");
+                    localStorage.setItem('athleteID', inputID);
 
-                    // 2. Arahkan ke halaman Dashboard Atlit
-                    // Pastikan kamu punya file bernama 'dashboard-atlit.html' atau sesuaikan namanya
+                    // Arahkan ke dashboard
                     window.location.href = './kelasAtlit/Dashboard-atlit.html'; 
-
                 } else {
-                    // Jika Salah
+                    // Gagal Login
                     errorMsg.classList.remove('hidden');
                     btnText.innerText = "MASUK PORTAL";
                     
-                    // Goyangkan input (Animation shake)
-                    document.getElementById('password').classList.add('border-red-500');
-                    setTimeout(() => {
-                        document.getElementById('password').classList.remove('border-red-500');
-                    }, 500);
+                    // Feedback visual jika salah
+                    const passInput = document.getElementById('password');
+                    passInput.classList.add('border-red-500');
+                    setTimeout(() => passInput.classList.remove('border-red-500'), 1000);
                 }
-            }, 1000); // Simulasi delay 1 detik biar keren
+            }, 800);
         });
     </script>
 </body>
